@@ -41,14 +41,15 @@ class must-have {
     logoutput => true,
   }
 
-  file { "/vagrant/solr":
+  file { "/home/vagrant/solr":
     ensure => directory,
+    owner => "vagrant",
     before => Exec["download_solr"]
   }
 
   exec { "download_solr":
-    command => "curl -L http://artfiles.org/apache.org/lucene/solr/4.5.1/solr-4.5.1.tgz | tar zx --directory=/vagrant/solr --strip-components 1",
-    cwd => "/vagrant",
+    command => "curl -L http://artfiles.org/apache.org/lucene/solr/4.5.1/solr-4.5.1.tgz | tar zx --directory=/home/vagrant/solr --strip-components 1",
+    cwd => "/home/vagrant",
     user => "vagrant",
     path => "/usr/bin/:/bin/",
     require => Exec["accept_license"],
